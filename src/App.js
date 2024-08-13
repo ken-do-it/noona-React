@@ -3,7 +3,6 @@ import './App.css';
 import Box from './component/Box';
 
 
-
 // 1. 박스 2개 (타이틀 이미지 결과)
 // 2. 박스 하단 가위,바위, 보 선택 버튼
 // 3. 버튼 클릭 -> 선택한 아이템 유저 창에 보인다
@@ -34,6 +33,10 @@ function App() {
   const [result, setResult] = useState("")
   const [computerResult, setComputerResult] = useState("")
 
+  const [winCount, setWinCount] = useState(0); // 이긴 횟수 상태 추가
+  const [loseCount, setLoseCount] = useState(0); // 진 횟수 상태 추가
+  const [tieCount, setTieCount] = useState(0)
+
 
 
   const play = (userChoice) => {
@@ -44,11 +47,14 @@ function App() {
     // 유저의 결과를 변수에 저장
     let result = judgement(choice[userChoice], computerChoice)
     
-    // 저장된 결과를 이용해 상태를 업데이트
+    // 유저 결과
     setResult(result.user)
     
-    // 컴퓨터 결과를 반대로 설정
+    // 컴퓨터 결과
     setComputerResult(result.computer)
+
+    // 승패 횟수 업데이트
+    updateUserCount(result.user);
   }
 
 
@@ -68,6 +74,7 @@ function App() {
   const judgement = (user,computer) => {
     console.log("user:", user , "computer:", computer)
 
+    // 유저, 컴퓨터, 결과  
     if (user.name === computer.name) {
       return {user:"tie", computer: "tie"}
     } else if (user.name === "Rock") return computer.name === "Scissors"? 
@@ -81,9 +88,15 @@ function App() {
   }
 
 
-
-
-
+  const updateUserCount = (result) => {
+    if (result === "win") {
+      setWinCount(prevWinCount => prevWinCount + 1); // 이긴 횟수 증가
+    } else if (result === "lose") {
+      setLoseCount(prevLoseCount => prevLoseCount + 1); // 진 횟수 증가
+    } else if (result === "tie") {
+      setTieCount(preTieCount => preTieCount  +1) // 비긴 횟수  증가
+    }
+  };
 
 
   
@@ -99,10 +112,9 @@ function App() {
 
 
   return (
-    
-    <div> 
-      
-      <div className='main'>
+      <div className='main_body'> 
+      <h1>Rock Scissor Paper!!</h1>
+      <div className="main">
         <Box name ="You" item ={userSelect} result = {result}/>
         <Box name = "Computer" item = {computerSelect} result = {computerResult}/>
       </div>
@@ -113,12 +125,19 @@ function App() {
         <button onClick={() => play("rock")}>바위</button>
         <button onClick={() => play("paper")}>보</button>
       </div>
+      
+      <div className='main_col'>
+        <h2>Total You win: {winCount}</h2> {/* 이긴 횟수 표시 */}
+        <h2>Total You lose: {loseCount}</h2> {/* 진 횟수 표시 */}
+        <h2>Total tie : {tieCount}</h2>
+      </div>
 
 
 
 
       
-    </div>
+      </div>
+
   );
 }
 
