@@ -41,11 +41,11 @@ function App() {
 
   const play = (userChoice) => {
     setUserSelect(choice[userChoice])
-    let computerChoice = randomChoice()
+    const computerChoice = randomChoice()
     setComputerSelect(computerChoice)
     
     // 유저의 결과를 변수에 저장
-    let result = judgement(choice[userChoice], computerChoice)
+    const result = judgement(choice[userChoice], computerChoice)
     
     // 유저 결과
     setResult(result.user)
@@ -101,11 +101,11 @@ function App() {
 
   
   const randomChoice =() => {
-    let itemArray = Object.keys(choice)
+    const itemArray = Object.keys(choice)
     console.log("item Array:", itemArray)
-    let randomItem = Math.floor(Math.random()*itemArray.length);
+    const randomItem = Math.floor(Math.random()*itemArray.length);
     console.log("random Item:", randomItem)
-    let final = itemArray[randomItem]
+    const final = itemArray[randomItem]
     console.log("final", final)
     return choice[final]
   }
