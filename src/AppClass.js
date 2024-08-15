@@ -95,6 +95,7 @@ export default class AppClass extends Component {
     return (
       <div className='main_body'> 
       <h1>Rock Scissor Paper!!</h1>
+      <h2>class component</h2>
       <div className="main">
         <Box name ="You" item ={this.state.userSelect} result = {this.state.result}/>
         <Box name = "Computer" item = {this.state.computerSelect} result = {this.state.computerResult}/>
